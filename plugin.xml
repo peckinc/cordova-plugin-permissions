@@ -16,7 +16,7 @@
 
   <keywords>permissions</keywords>
 
-  <repo>https://github.com/peckinc/cordova-plugin-permissions</repo>
+  <repo>https://github.com/peckinc/cordova-plugin-permissions.git</repo>
 
   <issue>https://github.com/peckinc/cordova-plugin-permissions/issues</issue>
 
