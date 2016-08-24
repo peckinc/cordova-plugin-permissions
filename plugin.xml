@@ -24,7 +24,7 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
-  <js-module src="www/permissions.js" name="Permissions">
+  <js-module src="www/Permissions.js" name="Permissions">
     <clobbers target="window.plugins.permissions" />
   </js-module>
 
