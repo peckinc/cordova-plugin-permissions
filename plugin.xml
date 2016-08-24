@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-permissions"
+        version="0.0.1">
+
+  <name>Permissions</name>
+
+  <description>
+
+  </description>
+
+  <author>Peck</author>
+
+  <license>MIT</license>
+
+  <keywords>permissions</keywords>
+
+  <repo>https://github.com/peckinc/cordova-plugin-permissions</repo>
+
+  <issue>https://github.com/peckinc/cordova-plugin-permissions/issues</issue>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0"/>
+  </engines>
+
+  <js-module src="www/permissions.js" name="Permissions">
+    <clobbers target="window.plugins.permissions" />
+  </js-module>
+
+  <!-- ios -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="Permissions">
+        <param name="ios-package" value="Permissions"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/Permissions.h"/>
+    <source-file src="src/ios/Permissions.m"/>
+  </platform>
+
+</plugin>

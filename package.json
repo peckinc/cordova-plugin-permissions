@@ -1,0 +1,30 @@
+{
+  "name": "cordova-plugin-permissions",
+  "version": "0.0.1",
+  "description": "This plugin lets you manage permissions on iOS.",
+  "cordova": {
+    "id": "cordova-plugin-permissions",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peckinc/cordova-plugin-permissions"
+  },
+  "keywords": [
+    "permissions"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Peck (https://github.com/peckinc)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peckinc/cordova-plugin-permissions/issues"
+  },
+  "homepage": "https://github.com/peckinc"
+}
