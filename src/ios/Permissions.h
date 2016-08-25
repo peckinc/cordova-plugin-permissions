@@ -8,11 +8,14 @@
 @property (nonatomic) HKHealthStore *healthStore;
 
 - (void)getLocationPermissions:(CDVInvokedUrlCommand*)command;
+
 - (void)getNotificationPermissions:(CDVInvokedUrlCommand*)command;
+
 - (void)getCalendarPermissions:(CDVInvokedUrlCommand*)command;
+
 - (void)getHealthKitPermissions:(CDVInvokedUrlCommand*)command;
 
-- (void)askLocationPermission:(CDVInvokedUrlCommand*)command;
+- (void)openSettings:(CDVInvokedUrlCommand*)command;
 
 
 @end

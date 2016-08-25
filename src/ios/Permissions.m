@@ -84,52 +84,14 @@
     return result;
 }
 
-/**
-    asks
-*/
-- (void)askLocationPermission:(CDVInvokedUrlCommand*)command {
-    [self askLocationPermissions];
+- (void)openSettings:(CDVInvokedUrlCommand*)command {
+
+    NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    [[UIApplication sharedApplication] openURL:appSettings];
+
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
-- (void)askNotificationPermission:(CDVInvokedUrlCommand*)command {
-    [self askNotificationPermissions];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)askgetCalendarPermission:(CDVInvokedUrlCommand*)command {
-    [self askLocationPermissions];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)askHealthKitPermission:(CDVInvokedUrlCommand*)command {
-    [self askLocationPermissions];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
--(void)askLocationPermissions{
-    if(self.locationManager == nil){
-        self.locationManager = [[CLLocationManager alloc]init];
-    }
-    [self.commandDelegate runInBackground:^{
-        [self.locationManager requestWhenInUseAuthorization];
-    }];
-
-}
-
--(void)askNotificationPermissions{
-    [self.commandDelegate runInBackground:^{
-        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }];
-}
-
 
 
 @end

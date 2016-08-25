@@ -19,8 +19,8 @@ cordova.define("cordova-plugin-permissions.Permissions", function(require, expor
         cordova.exec(callback, null, "Permissions", "getHealthKitPermissions", []);
     };
 
-    Permissions.prototype.askLocationPermission = function (callback) {
-      cordova.exec(callback, null, "Permissions", "askLocationPermission", []);
+    Permissions.prototype.openSettings = function (callback) {
+      cordova.exec(callback, null, "Permissions", "openSettings", []);
     };
 
     Permissions.install = function () {
