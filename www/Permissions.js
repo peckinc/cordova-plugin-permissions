@@ -1,5 +1,5 @@
 cordova.define("cordova-plugin-permissions.Permissions", function(require, exports, module) { "use strict";
-    
+
     function Permissions() {
     }
 
@@ -15,8 +15,12 @@ cordova.define("cordova-plugin-permissions.Permissions", function(require, expor
         cordova.exec(callback, null, "Permissions", "getCalendarPermissions", []);
     };
 
-    Permissions.prototype.askPermission = function (key, callback) {
-      cordova.exec(callback, null, "Permissions", "askPermission", []);
+    Permissions.prototype.getHealthKitPermissions = function (callback) {
+        cordova.exec(callback, null, "Permissions", "getHealthKitPermissions", []);
+    };
+
+    Permissions.prototype.askLocationPermission = function (callback) {
+      cordova.exec(callback, null, "Permissions", "askLocationPermission", []);
     };
 
     Permissions.install = function () {
@@ -31,4 +35,3 @@ cordova.define("cordova-plugin-permissions.Permissions", function(require, expor
     cordova.addConstructor(Permissions.install);
 
 });
-
