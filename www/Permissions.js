@@ -1,4 +1,6 @@
-cordova.define("cordova-plugin-permissions.Permissions", function(require, exports, module) { "use strict";
+cordova.define("cordova-plugin-permissions.Permissions", function(require, exports, module) {
+
+    "use strict";
 
     function Permissions() {
     }

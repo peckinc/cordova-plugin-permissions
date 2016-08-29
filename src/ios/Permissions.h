@@ -11,9 +11,9 @@
 
 - (void)getNotificationPermissions:(CDVInvokedUrlCommand*)command;
 
-- (void)getCalendarPermissions:(CDVInvokedUrlCommand*)command;
-
 - (void)getHealthKitPermissions:(CDVInvokedUrlCommand*)command;
+
+- (void)getCalendarPermissions:(CDVInvokedUrlCommand*)command;
 
 - (void)openSettings:(CDVInvokedUrlCommand*)command;
 

@@ -8,78 +8,87 @@
 
 @implementation Permissions
 
+NSString* kUnknown = @"unknown";
+NSString* kAuthorized = @"authorized";
+NSString* kDenied = @"denied";
+
 -(void)pluginInitialize {
     [super pluginInitialize];
     _healthStore = [HKHealthStore new];
 }
 
 - (void)getLocationPermissions:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self updateLocationPermissions]];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self updateLocationPermissions]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getNotificationPermissions:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self updateNotificationPermissions]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)getCalendarPermissions:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self updateCalendarPermissions]];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self updateNotificationPermissions]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getHealthKitPermissions:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self updateHealthKitPermissions]];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self updateHealthKitPermissions]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(BOOL)updateLocationPermissions{
-    BOOL result = false;
+- (void)getCalendarPermissions:(CDVInvokedUrlCommand*)command {
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self updateCalendarPermissions]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(NSString*)updateLocationPermissions{
+    NSString* result = kUnknown;
     if([CLLocationManager significantLocationChangeMonitoringAvailable] == NO){
 
     } else {
         CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
         if(status == kCLAuthorizationStatusAuthorizedWhenInUse){
-            result = true;
+            result = kAuthorized;
         } else if(status == kCLAuthorizationStatusAuthorizedAlways){
-            result = true;
+            result = kAuthorized;
         } else if(status == kCLAuthorizationStatusNotDetermined) {
         } else if(status == kCLAuthorizationStatusDenied) {
-        } else if(status == kCLAuthorizationStatusRestricted) {
+            result = kDenied;
+       } else if(status == kCLAuthorizationStatusRestricted) {
+            result = kDenied;
         }
     }
     return result;
 }
 
--(BOOL)updateNotificationPermissions{
-    BOOL result = false;
+-(NSString*)updateNotificationPermissions{
+    NSString* result = kUnknown;
     UIUserNotificationSettings *settings = [UIApplication sharedApplication].currentUserNotificationSettings;
     if(settings.types != UIUserNotificationTypeNone){
-        result = true;
+        result = kAuthorized;
     }
     return result;
 }
 
--(BOOL)updateCalendarPermissions{
-    BOOL result = false;
-    EKAuthorizationStatus status = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
-    if(status == EKAuthorizationStatusNotDetermined){
-    } else if(status == EKAuthorizationStatusAuthorized){
-        result = true;
-    } else if(status == EKAuthorizationStatusDenied){
-    } else if(status == EKAuthorizationStatusRestricted){
-    }
-    return result;
-}
-
--(BOOL)updateHealthKitPermissions{
-    BOOL result = false;
+-(NSString*)updateHealthKitPermissions{
+    NSString* result = kUnknown;
     HKObjectType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     HKAuthorizationStatus status = [self.healthStore authorizationStatusForType:type];
     if (status == HKAuthorizationStatusNotDetermined) {
-    } else if (status == HKAuthorizationStatusSharingDenied) {
     } else if (status == HKAuthorizationStatusSharingAuthorized) {
-        result = true;
+        result = kAuthorized;
+    } else if (status == HKAuthorizationStatusSharingDenied) {
+        result = kDenied;
+    }
+    return result;
+}
+
+-(NSString*)updateCalendarPermissions{
+    NSString* result = kUnknown;
+    EKAuthorizationStatus status = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
+    if(status == EKAuthorizationStatusNotDetermined){
+    } else if(status == EKAuthorizationStatusAuthorized){
+        result = kAuthorized;
+    } else if(status == EKAuthorizationStatusDenied){
+        result = kDenied;
+    } else if(status == EKAuthorizationStatusRestricted){
+        result = kDenied;
     }
     return result;
 }
