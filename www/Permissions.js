@@ -1,6 +1,11 @@
+cordova.define("cordova-plugin-permissions.Permissions", function(require, exports, module) {
 
 function Permissions() {
 }
+
+Permissions.prototype.getPermissions = function (callback) {
+    cordova.exec(callback, null, "Permissions", "getPermissions", []);
+};
 
 Permissions.prototype.getLocationPermissions = function (callback) {
     cordova.exec(callback, null, "Permissions", "getLocationPermissions", []);
@@ -32,3 +37,5 @@ Permissions.install = function () {
 };
 
 cordova.addConstructor(Permissions.install);
+
+});

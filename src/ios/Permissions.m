@@ -17,6 +17,30 @@ NSString* kDenied = @"denied";
     _healthStore = [HKHealthStore new];
 }
 
+- (void)getPermissions:(CDVInvokedUrlCommand*)command {
+
+    NSString* location =[self updateLocationPermissions];
+    NSString* notification =[self updateNotificationPermissions];
+    NSString* health =[self updateHealthKitPermissions];
+    NSString* calendar =[self updateCalendarPermissions];
+
+    NSDictionary *jsonDictionary = @{
+        @"location" : location,
+        @"notification" : notification,
+        @"health" : health,
+        @"calendar" : calendar
+    };
+
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+
+    NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:json];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)getLocationPermissions:(CDVInvokedUrlCommand*)command {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self updateLocationPermissions]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
