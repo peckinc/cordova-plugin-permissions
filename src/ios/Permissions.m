@@ -81,8 +81,9 @@ NSString* kDenied = @"denied";
     return result;
 }
 
+// note there is no kUnknown for notifications
 -(NSString*)updateNotificationPermissions{
-    NSString* result = kUnknown;
+    NSString* result = kDenied;
     UIUserNotificationSettings *settings = [UIApplication sharedApplication].currentUserNotificationSettings;
     if(settings.types != UIUserNotificationTypeNone){
         result = kAuthorized;
